@@ -16,7 +16,7 @@
 #define DIO0 2
 
 
-String AcXS, AcYS, AcZS, GyXS, GyYS, GyZS;
+String AcXS, AcYS, AcZS, GyXS, GyYS, GyZS,tmp;
 void setup()
 {
   Serial.begin(9600);
@@ -58,6 +58,9 @@ void loop()
       GyZS = LoRa.readStringUntil ('#');
       Serial.print("Gyro Z : ");
       Serial.println (GyZS);
+            GyZS = LoRa.readStringUntil ('#');
+      Serial.print("Temperature : ");
+      Serial.println (tmp);
     }
   }
 
