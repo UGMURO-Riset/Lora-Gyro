@@ -2,8 +2,8 @@
 #include <LoRa.h>
 #include<Wire.h>
 const int MPU_addr = 0x68; // I2C address of the MPU-6050
-int16_t AcX, AcY, AcZ, Tmp, GyX, GyY, GyZ;
-String AcXS, AcYS, AcZS, GyXS, GyYS, GyZS;
+int16_t AcX, AcY, AcZ, Tmp, GyX, GyY, GyZ,temp;
+String AcXS, AcYS, AcZS, GyXS, GyYS, GyZS,tmp;
 /* LoRa to Nano interface
    VCC      3V3
    GND      GND
@@ -48,12 +48,14 @@ void loop()
   Serial.print(" | AcY = "); Serial.print(AcY);
   Serial.print(" | AcZ = "); Serial.print(AcZ);
   Serial.print(" | Tmp = "); Serial.println(Tmp / 340.00 + 36.53); //equation for temperature in degrees C from datasheet
+  temp = Tmp/340.00 + 36.53;
   AcXS = String(AcX);
   AcYS = String(AcY);
   AcZS = String(AcZ);
   GyXS = String(GyX);
   GyYS = String(GyY);
   GyZS = String(GyZ);
+  tmp = String(temp);
   Serial.print("AcXS = "); Serial.print(AcXS);
   Serial.print(" | AcYS = "); Serial.print(AcYS);
   Serial.print(" | AcZS = "); Serial.print(AcZS);
@@ -73,6 +75,8 @@ void loop()
   LoRa.print(GyYS);
     LoRa.print("#");
   LoRa.print(GyZS);
+    LoRa.print("#");
+  LoRa.print(tmp);
     LoRa.print("#");
   LoRa.endPacket();
 
